@@ -4,9 +4,16 @@ public class Item {
 
   private String id;
   private String name;
-  private String category;
+  private Category category;
   private double price;
   private String brand;
+
+  public enum Category {
+    Category1,
+    Category2,
+    Category3,
+    Category4
+  }
 
   private Item(Builder builder) {
     this.id = builder.id;
@@ -24,7 +31,7 @@ public class Item {
     return name;
   }
 
-  public String getCategory() {
+  public Category getCategory() {
     return category;
   }
 
@@ -59,7 +66,7 @@ public class Item {
 
     private String id;
     private String name;
-    private String category;
+    private Category category;
     private double price;
     private String brand;
 
@@ -73,7 +80,7 @@ public class Item {
       return this;
     }
 
-    public Builder category(String category) {
+    public Builder category(Category category) {
       this.category = category;
       return this;
     }
