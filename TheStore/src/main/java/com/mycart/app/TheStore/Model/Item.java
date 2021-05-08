@@ -1,21 +1,18 @@
 package com.mycart.app.TheStore.Model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+
+@JsonDeserialize(builder = Item.Builder.class)
 public class Item {
 
-  private String id;
-  private String name;
-  private Category category;
-  private double price;
+  private final Long id;
+  private final String name;
+  private final String category;
+  private final double price;
   private String brand;
 
-  public enum Category {
-    Category1,
-    Category2,
-    Category3,
-    Category4
-  }
-
-  private Item(Builder builder) {
+  private Item(final Builder builder) {
     this.id = builder.id;
     this.name = builder.name;
     this.category = builder.category;
@@ -23,7 +20,7 @@ public class Item {
     this.brand = builder.brand;
   }
 
-  public String getId() {
+  public Long getId() {
     return id;
   }
 
@@ -31,7 +28,7 @@ public class Item {
     return name;
   }
 
-  public Category getCategory() {
+  public String getCategory() {
     return category;
   }
 
@@ -43,7 +40,7 @@ public class Item {
     return brand;
   }
 
-  public void setBrand(String brand) {
+  public void setBrand(final String brand) {
     this.brand = brand;
   }
 
@@ -62,46 +59,47 @@ public class Item {
         + "]";
   }
 
+  @JsonPOJOBuilder(buildMethodName = "build", withPrefix = "")
   public static class Builder {
 
-    private String id;
+    private Long id;
     private String name;
-    private Category category;
+    private String category;
     private double price;
     private String brand;
 
-    public Builder id(String id) {
+    public Builder id(final Long id) {
       this.id = id;
       return this;
     }
 
-    public Builder name(String name) {
+    public Builder name(final String name) {
       this.name = name;
       return this;
     }
 
-    public Builder category(Category category) {
+    public Builder category(final String category) {
       this.category = category;
       return this;
     }
 
-    public Builder price(double price) {
+    public Builder price(final double price) {
       this.price = price;
       return this;
     }
 
-    public Builder brand(String brand) {
+    public Builder brand(final String brand) {
       this.brand = brand;
       return this;
     }
 
     public Item build() {
-      Item item = new Item(this);
-      validateItemObject(item);
+      final Item item = new Item(this);
+      // validateItemObject(item);
       return item;
     }
 
-    private void validateItemObject(Item item) {
+    private void validateItemObject(final Item item) {
       // Do some basic validations to check
       // if user object does not break any assumption of system
     }
@@ -122,11 +120,11 @@ public class Item {
   }
 
   @Override
-  public boolean equals(Object obj) {
+  public boolean equals(final Object obj) {
     if (this == obj) return true;
     if (obj == null) return false;
     if (getClass() != obj.getClass()) return false;
-    Item other = (Item) obj;
+    final Item other = (Item) obj;
     if (brand == null) {
       if (other.brand != null) return false;
     } else if (!brand.equals(other.brand)) return false;
